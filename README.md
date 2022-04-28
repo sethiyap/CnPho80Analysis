@@ -1,6 +1,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# CnPho80Analysis is an R-package containing all the scripts and functions used to analyse *C. neoformans* RNASeq data to understand the effect of phosphate overload.
+# CnPho80Analysis
+
+R-package containing all the scripts and functions used to analyse *C.
+neoformans* RNASeq data to understand the effect of phosphate overload.
 
 ## RNASeq data for WT and pho80∆
 
