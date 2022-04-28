@@ -145,35 +145,6 @@ go_gg
 
 ```
 
-## Mitochondrial genes
-
-Mitochondrial genes were specifically enriched among the DEGs, hence we checked the overlap between genes associated with GO term: Mitochondrion upon phosphate overload (i.e., pho80∆) with phosphate limitation.
-
-```{r mitochondrial_genes_1, echo=TRUE, eval=FALSE}
-
-venn_dat <- read.table("mitochondrial_genes.txt",sep="\t", header=TRUE)
-
-gg_1 = as.list(venn_dat)
-
-v1 = lapply(gg_1,unique)
-
-c1 = lapply(v1, function(x) x[!x %in% ""])
-lengths(c1)
-
-names(c1)=factor(names(c1))
-upset_venn1 <- UpSetR::upset(UpSetR::fromList(c1), 
-          nsets = ncol(venn_dat),
-          order.by = c("degree"),
-          keep.order=TRUE,sets=names(c1),
-          sets.bar.color = c("#00468BFF","#ED0000FF", "#00468BFF", "#ED0000FF"),
-          text.scale=2, sets.x.label = "No. of genes")
-
-upset_venn1
-
-```
-
-
-
 ```{r mitochondrial_genes_2, echo=TRUE, eval=TRUE}
 venn_dat2 <- read.table("data/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
 
