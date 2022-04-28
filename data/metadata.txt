@@ -1,0 +1,6 @@
+DRR031839	untreated
+DRR031840	treated
+DRR031841	untreated
+DRR031842	treated
+DRR031843	treated
+DRR031844	treated

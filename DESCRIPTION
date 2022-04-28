@@ -26,5 +26,11 @@ Imports:
         knitr (>= 1.37),
         stats(>= 4.1.2),
         utils(>= 4.1.2),
-        tibble(>= 3.1.6)
+        tibble(>= 3.1.6),
+        GGally(>= 2.1.2),
+        data.table(>= 1.14.2),
+        writexl(>= 1.4.0),
+        stringr(>= 1.4.0),
+        readr(>= 2.1.2),
+        DESeq2(>= 1.34.0)
 VignetteBuilder: knitr
