@@ -67,7 +67,11 @@ metadata <- "data/metadata.txt"
 deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_file = "metadata.txt", header_count_file = TRUE, HTSeqOutput = FALSE, drop_genes = NULL, write_output = FALSE)
 ```
 
-## Genes affected by phosphate limitation and overload
+PCA plot highlights that transcriptiome of each sample is distinct from
+each other (generated using
+[FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
+<img src="data/pca_plot.png" style="height:30.0%" /> ## Genes affected
+by phosphate limitation and overload
 
 ``` r
 library(magrittr)
@@ -158,7 +162,8 @@ go_gg <- dat_go %>% dplyr::mutate(Name=forcats::as_factor(Name),
 go_gg
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-5-1.png) ##
+Comparison of cna1∆ with pho80∆
 
 ``` r
 venn_dat2 <- read.table("data/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
@@ -187,3 +192,5 @@ upset_venn2
 ```
 
 ![](README_files/figure-markdown_github/mitochondrial_genes_2-1.png)
+
+## Comparison of pho80∆ with rapamycin treated cells

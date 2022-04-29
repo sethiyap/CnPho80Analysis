@@ -54,7 +54,8 @@ For cna1∆ data, mapped read counts were downloaded from GEO database:[GSE93005
 
 ### Computation of normalized read counts
 
-Normalized read counts for each gene were determined by DESeq2 for all the datasets. Genes with read count <2 in all conditions were filtered. For differential gene expression analysis, genes with Log2FC >= 1 and Log2FC <= -1 were classified as up- and down-regulated genes, respectively. 
+Normalized read counts for each gene were determined by DESeq2 for all the datasets. Genes with read count <2 in all conditions were filtered. 
+For differential gene expression analysis, genes with Log2FC >= 1 and Log2FC <= -1 were classified as up- and down-regulated genes, respectively. 
 
 ```{r echo=TRUE, eval=FALSE}
 
@@ -66,7 +67,8 @@ metadata <- "data/metadata.txt"
 deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_file = "metadata.txt", header_count_file = TRUE, HTSeqOutput = FALSE, drop_genes = NULL, write_output = FALSE)
 
 ```
-
+PCA plot highlights that transcriptiome of each sample is distinct from each other (generated using [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
+![](data/pca_plot.png){width=30%, height=30%}
 ## Genes affected by phosphate limitation and overload
 
 ```{r echo=TRUE, eval=TRUE}
@@ -144,6 +146,7 @@ go_gg <- dat_go %>% dplyr::mutate(Name=forcats::as_factor(Name),
 go_gg
 
 ```
+## Comparison of cna1∆ with pho80∆
 
 ```{r mitochondrial_genes_2, echo=TRUE, eval=TRUE}
 venn_dat2 <- read.table("data/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
@@ -164,4 +167,10 @@ upset_venn2 <- UpSetR::upset(UpSetR::fromList(c2),
           text.scale=2, sets.x.label = "No. of genes")
 
 upset_venn2
+```
+
+## Comparison of pho80∆ with rapamycin treated cells
+
+```{r }
+
 ```
