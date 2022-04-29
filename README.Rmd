@@ -68,7 +68,7 @@ deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_f
 
 ```
 PCA plot highlights that transcriptiome of each sample is distinct from each other (generated using [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
-![](data/pca_plot.png){width=30%, height=30%}
+![](data/pca_plot.png){width=10%, height=10%}
 ## Genes affected by phosphate limitation and overload
 
 ```{r echo=TRUE, eval=TRUE}
