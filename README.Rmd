@@ -68,10 +68,14 @@ deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_f
 
 ```
 PCA plot highlights that transcriptiome of each sample is distinct from each other (generated using [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
-![](data/pca_plot.png){width=10%, height=10%}
+
+```{r pca_plot, echo=FALSE, out.width="30%"}
+knitr::include_graphics("data/pca_plot.png")
+```
+
 ## Genes affected by phosphate limitation and overload
 
-```{r echo=TRUE, eval=TRUE}
+```{r DEG_genes, echo=TRUE, eval=TRUE}
 
 library(magrittr)
 DEG <- tibble::tribble(
@@ -98,7 +102,7 @@ dg
 
 Data validation by measuring the expression of phosphate acquisition pathway genes.
 
-```{r echo=TRUE}
+```{r barplot_pho_genes, echo=TRUE}
 
 PHO_genes <- tibble::tribble(
                ~CNAG_name, ~`LFC_WT(-Pi/+Pi)`, ~`LFC_pho80∆/WT(+Pi)`,
@@ -128,7 +132,7 @@ pp
 
 Functions of the differential expressed genes (DEGs) was determined by performing GO-term enrichment at FungiDb using *C.neoformans* H99 as background strain.
 
-```{r echo=TRUE}
+```{r GO_plot, echo=TRUE}
 
 dat_go <- readr::read_delim("data/GO_enrichment.txt", delim="\t", col_names = TRUE)
 

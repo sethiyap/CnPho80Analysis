@@ -70,8 +70,10 @@ deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_f
 PCA plot highlights that transcriptiome of each sample is distinct from
 each other (generated using
 [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
-<img src="data/pca_plot.png" style="height:10.0%" /> ## Genes affected
-by phosphate limitation and overload
+
+<img src="data/pca_plot.png" width="30%" />
+
+## Genes affected by phosphate limitation and overload
 
 ``` r
 library(magrittr)
@@ -95,7 +97,7 @@ dg <- DEG %>%
 dg
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](README_files/figure-markdown_github/DEG_genes-1.png)
 
 ## Phosphate acquisition genes
 
@@ -126,7 +128,7 @@ pp <- PHO_genes %>%
 pp
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](README_files/figure-markdown_github/barplot_pho_genes-1.png)
 
 ## Functional analysis by GO-term enrichment
 
@@ -162,8 +164,8 @@ go_gg <- dat_go %>% dplyr::mutate(Name=forcats::as_factor(Name),
 go_gg
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png) ##
-Comparison of cna1∆ with pho80∆
+![](README_files/figure-markdown_github/GO_plot-1.png) ## Comparison of
+cna1∆ with pho80∆
 
 ``` r
 venn_dat2 <- read.table("data/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
