@@ -71,7 +71,7 @@ PCA plot highlights that transcriptiome of each sample is distinct from
 each other (generated using
 [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
 
-<img src="data/pca_plot.png" width="30%" />
+<img src="data/pca_plot.png" width="50%" />
 
 ## Genes affected by phosphate limitation and overload
 
@@ -196,3 +196,29 @@ upset_venn2
 ![](README_files/figure-markdown_github/mitochondrial_genes_2-1.png)
 
 ## Comparison of pho80∆ with rapamycin treated cells
+
+``` r
+venn_dat <- read.table("data/Pho80_Rapa_DEGs.txt",sep="\t", header=TRUE)
+
+xx <- as.list(venn_dat)
+
+xx2 = lapply(xx, function(x) x[!x %in% ""])
+
+display_venn <- function(x, ...){
+  grid::grid.newpage()
+  venn_object <- VennDiagram::venn.diagram(x, filename = NULL, ...)
+  grid::grid.draw(venn_object)
+}
+
+up_genes <- xx2[c(1,3)]
+down_genes <- xx2[c(2,4)]
+display_venn(up_genes, category.names = c("rapa_up", "pho80∆_up"),fill = c("#999999", "#E69F00"), lwd = 2,lty = 'blank')
+```
+
+![](README_files/figure-markdown_github/rapa_genes-1.png)
+
+``` r
+display_venn(down_genes, category.names = c( "rapa_down","pho80∆_down"),fill = c( "#56B4E9", "#009E73"), lwd = 2,lty = 'blank')
+```
+
+![](README_files/figure-markdown_github/rapa_genes-2.png)
