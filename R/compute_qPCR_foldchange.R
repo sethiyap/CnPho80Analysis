@@ -22,6 +22,7 @@
 #' @import stats
 #' @import utils
 #' @import tibble
+#' @import forcats
 #'
 #' @details pvalue calculation
 #'   source:\url{https://stats.oarc.ucla.edu/other/mult-pkg/faq/pvalue-htm/}
@@ -49,6 +50,7 @@ compute_qPCR_foldchange <- function(dat_qPCR=dat_qPCR, house_keeping="TUB2", con
 
   dCt_df <- dat_qPCR %>%
     tidyr::gather(gene, value,-sample, -house_keeping) %>% # add house-keeping gene Ct value into new column
+    dplyr::mutate(sample=forcats::as_factor(sample)) %>%
     dplyr::mutate(dCt = value - !!rlang::sym(house_keeping)) # calculate ∆Ct=Ct(gene of interest) - Ct(house-keeping)
 
   ddCt_df <- dCt_df %>%
