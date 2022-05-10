@@ -7,6 +7,8 @@
 #' @param display_pval Logical, to display pvalue on the barplot. default: NULL
 #' @param nrow numeric, number of rows in which the genes should be displayed.
 #'   default: 2
+#' @param control_group character vector, sample or group which should be
+#'   considered as reference to compute pvalue from t.test.
 #'
 #' @return barplot of the fold-change
 #' @export
@@ -32,8 +34,9 @@
 #' qPCR_fc <- qPCR_fc %>% tibble::rownames_to_column(var = "Sample")
 #' plot_qPCR_foldchange(fc_tibble = qPCR_fc, display_pval = FALSE, nrow=1)
 #'
-plot_qPCR_foldchange <- function(fc_tibble, display_pval=NULL, nrow=2){
+plot_qPCR_foldchange <- function(fc_tibble, display_pval=NULL, control_group="WT",nrow=2){
 
+  library(ggpubr)
   # First column name, always sample
   names(fc_tibble)[1] = "sample"
 
@@ -43,9 +46,9 @@ plot_qPCR_foldchange <- function(fc_tibble, display_pval=NULL, nrow=2){
                       tidyr::gather(gene, value, -sample)
 
   pval_tibble <- fc_tibble_group %>%
-                      dplyr::mutate(gene=forcats::as_factor(gene)) %>%
+                      dplyr::mutate(gene=forcats::as_factor(gene), sample=forcats::as_factor(sample)) %>%
                       dplyr::group_by(gene) %>%
-                      rstatix::t_test(value ~ sample, paired = FALSE) %>%
+                      rstatix::t_test(value ~ sample, paired = FALSE, ref.group = control_group) %>%
                       dplyr::mutate(p=p/2,
                                     # left tailed: treatment < control, right tailed: treatment > control
                                     # However, in population of genes if some are control > treatment or control < treatment.

@@ -63,7 +63,7 @@ library(magrittr)
 
 dir="count_file"
 pattern="_star_alignAligned.sortedByCoord.out.bam_count.txt"
-metadata <- "data/metadata.txt"
+metadata <- "inst/extdata/metadata.txt"
 deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_file = "metadata.txt", header_count_file = TRUE, HTSeqOutput = FALSE, drop_genes = NULL, write_output = FALSE)
 ```
 
@@ -137,7 +137,7 @@ performing GO-term enrichment at FungiDb using *C.neoformans* H99 as
 background strain.
 
 ``` r
-dat_go <- readr::read_delim("data/GO_enrichment.txt", delim="\t", col_names = TRUE)
+dat_go <- readr::read_delim("inst/extdata/GO_enrichment.txt", delim="\t", col_names = TRUE)
 ```
 
     ## Rows: 44 Columns: 6
@@ -168,7 +168,7 @@ go_gg
 cna1∆ with pho80∆
 
 ``` r
-venn_dat2 <- read.table("data/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
+venn_dat2 <- read.table("inst/extdata/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
 
 gg_2 = as.list(venn_dat2)
 
@@ -198,7 +198,7 @@ upset_venn2
 ## Comparison of pho80∆ with rapamycin treated cells
 
 ``` r
-venn_dat <- read.table("data/Pho80_Rapa_DEGs.txt",sep="\t", header=TRUE)
+venn_dat <- read.table("inst/extdata/Pho80_Rapa_DEGs.txt",sep="\t", header=TRUE)
 
 xx <- as.list(venn_dat)
 

@@ -4,7 +4,12 @@
 \alias{plot_qPCR_foldchange}
 \title{plot_qPCR_foldchange}
 \usage{
-plot_qPCR_foldchange(fc_tibble, display_pval = NULL, nrow = 2)
+plot_qPCR_foldchange(
+  fc_tibble,
+  display_pval = NULL,
+  control_group = "WT",
+  nrow = 2
+)
 }
 \arguments{
 \item{fc_tibble}{tibble of fold-change values determined as 2^-∆∆Ct, can be
@@ -13,6 +18,9 @@ WT_R1, WT_R2, WT_R3, treatment_R1,... and columns are genes. Replicates
 should always be in the format "_R1" or "_1" or "_set1"}
 
 \item{display_pval}{Logical, to display pvalue on the barplot. default: NULL}
+
+\item{control_group}{character vector, sample or group which should be
+considered as reference to compute pvalue from t.test.}
 
 \item{nrow}{numeric, number of rows in which the genes should be displayed.
 default: 2}
