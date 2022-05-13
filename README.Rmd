@@ -11,6 +11,17 @@ html_preview: true
 # CnPho80Analysis 
 R-package containing all the scripts and functions used to analyse *C. neoformans* RNASeq data to understand the effect of phosphate overload.
 
+# Install this package
+
+```
+if(require("devtools")){
+        devtools::install_github("sethiyap/CnPho80Analysis")
+} else{
+        install.packages("devtools")
+        devtools::install_github("sethiyap/CnPho80Analysis")
+}
+```
+
 ## RNASeq data for WT and pho80∆
 
 RNASeq data for WT and pho80∆ under phosphate limited conditions was downloaded from SRA database: [PRJDB3514](https://www.ncbi.nlm.nih.gov/bioproject/PRJDB3514/)
@@ -70,7 +81,7 @@ deg <- CnPho80Analysis::deseq_from_htseqcount(dir, pattern = pattern, metadata_f
 PCA plot highlights that transcriptiome of each sample is distinct from each other (generated using [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
 
 ```{r pca_plot, echo=FALSE, out.width="50%"}
-knitr::include_graphics("data/pca_plot.png")
+knitr::include_graphics("inst/extdata/pca_plot.png")
 ```
 
 ## Genes affected by phosphate limitation and overload
