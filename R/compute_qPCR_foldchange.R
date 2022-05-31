@@ -8,7 +8,7 @@
 #'   control eg. "TUB2" for tubulin gene.
 #' @param control character vector, determining name of the control samples eg.
 #'   WT
-#' @param treatment character vector, determining name of the control samples
+#' @param treatment character vector, determining name of the treatment samples
 #'   eg. treatment
 #' @param return_pval logical, to return pvalue or tibble of fold-change
 #' @return ggplot of the fold change and tibble of foldchange, pvalue

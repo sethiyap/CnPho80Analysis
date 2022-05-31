@@ -23,7 +23,7 @@ control eg. "TUB2" for tubulin gene.}
 \item{control}{character vector, determining name of the control samples eg.
 WT}
 
-\item{treatment}{character vector, determining name of the control samples
+\item{treatment}{character vector, determining name of the treatment samples
 eg. treatment}
 
 \item{return_pval}{logical, to return pvalue or tibble of fold-change}
