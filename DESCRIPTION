@@ -32,5 +32,6 @@ Imports:
         writexl(>= 1.4.0),
         stringr(>= 1.4.0),
         readr(>= 2.1.2),
-        DESeq2(>= 1.34.0)
+        DESeq2(>= 1.34.0),
+        ggalt(>= 0.4.0)
 VignetteBuilder: knitr

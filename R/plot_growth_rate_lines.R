@@ -8,7 +8,7 @@
 #' @param is_facet logical to facet the data according to samples
 #' @param color_pal character vector, determining the colors to be used, default palette present
 #'
-#' @return ggplot of OD600 and percent growth. Tibble of percent growth rates
+#' @return a list of ggplot of OD600 and percent growth. Tibble of percent growth rates
 #' @export
 #' @import ggplot2
 #' @import tidyr
@@ -17,6 +17,7 @@
 #' @import stats
 #' @import utils
 #' @import tibble
+#' @import ggalt
 #'
 #' @examples
 #' library(magrittr)
@@ -31,7 +32,7 @@
 #' plot_growth_rate_lines(dat_gr = OD_dat, is_replicates = TRUE)
 #'
 #'
-plot_growth_rate_lines <- function(dat_gr=dat_gr, is_replicates=FALSE, is_facet=FALSE, color_pal=NULL){
+plot_growth_rate_lines <- function(dat_gr=dat_gr, is_replicates=FALSE, is_facet=FALSE, color_pal=NULL, OD_plot=TRUE){
 
   # First column name, always Time
   names(dat_gr)[1] = "Time"
@@ -114,27 +115,28 @@ plot_growth_rate_lines <- function(dat_gr=dat_gr, is_replicates=FALSE, is_facet=
     # plot OD600
     gg_od <- gr_group %>%
       ggplot2::ggplot(ggplot2::aes(Time, values, color=condition, group=condition))+
-      ggplot2::geom_line(lwd=1)+
-      ggplot2::geom_point(color="black")+
-      ggplot2::scale_y_log10()
+      #ggplot2::geom_line(lwd=1)+
+      ggalt::geom_xspline(size=1)+
+      ggplot2::geom_point(color="black")
+      #ggplot2::scale_y_log10()
 
     gg_od <- od_aes(gg = gg_od, color_pal = cbp1, is_facet = is_facet)
 
     # percent growth rate calculation
-    gr_calculator <-    gr_group %>%
+    gr_calculator <- gr_group %>%
       dplyr::mutate(time = stringr::str_replace_all(string = Time, pattern = "[^0-9.-]", replacement = ""),
                     time=as.numeric(time)) %>%
       dplyr::mutate(gr = (values - dplyr::first(values))/dplyr::first(values)) %>% # subtracts from 0hr time-point
       dplyr::mutate(gr_time = gr/time, percent_growth = gr_time*100) %>%
-      tidyr::drop_na() %>%
+      tidyr::replace_na(list(gr_time=0, percent_growth=0)) %>%
       dplyr::ungroup() %>%
       dplyr::select(c(Time, condition, percent_growth))
 
     gg_percent <- gr_calculator %>%
       ggplot2::ggplot(ggplot2::aes(Time, percent_growth, color=condition, group=condition))+
-      ggplot2::geom_line(lwd=1)+
-      ggplot2::geom_point(color="black")+
-      ggplot2::scale_y_log10()
+      ggalt::geom_xspline(size=1)+
+      ggplot2::geom_point(color="black")
+      #ggplot2::scale_y_log10()
 
     percent_plot <- percent_aes(gg = gg_percent, color_pal = cbp1, is_facet = is_facet,legend_order = legend_order)
 
@@ -156,10 +158,11 @@ plot_growth_rate_lines <- function(dat_gr=dat_gr, is_replicates=FALSE, is_facet=
     # plot OD
     gg_od <- dat_od_sd %>%
       ggplot2::ggplot(ggplot2::aes(Time, mean_od, color=condition, group=condition))+
-      ggplot2::geom_line(lwd=1)+
+      ggalt::geom_xspline(size=1)+
       ggplot2::geom_point(color="black")+
       ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_od-sd_od, ymax=mean_od+sd_od),
-                             width=.1,size=0.3, color="black")+ggplot2::scale_y_log10()
+                             width=.1,size=0.3, color="black")
+      #ggplot2::scale_y_log10()
 
     gg_od <- od_aes(gg = gg_od, color_pal = cbp1, is_facet = is_facet)
 
@@ -171,7 +174,7 @@ plot_growth_rate_lines <- function(dat_gr=dat_gr, is_replicates=FALSE, is_facet=
                     time=as.numeric(time)) %>%
       dplyr::mutate(gr = (values - dplyr::first(values))/dplyr::first(values)) %>% # subtracts from 0hr time-point
       dplyr::mutate(gr_time = gr/time, percent_growth = gr_time*100) %>%
-      tidyr::drop_na() %>%
+      tidyr::replace_na(list(gr_time=0, percent_growth=0)) %>%
       dplyr::ungroup() %>%
       dplyr::group_by(condition, Time) %>%
       dplyr::mutate(mean_percent=mean(percent_growth), sd_percent = sd(percent_growth)) %>%
@@ -181,23 +184,25 @@ plot_growth_rate_lines <- function(dat_gr=dat_gr, is_replicates=FALSE, is_facet=
     # plot growth calculator
     gg_pr <- gr_calculator %>%
       ggplot2::ggplot(ggplot2::aes(Time, mean_percent, color=condition, group=condition))+
-      ggplot2::geom_line(lwd=1)+
+      ggalt::geom_xspline(size=1)+
       ggplot2::geom_point(color="black")+
-      ggplot2::scale_y_log10()+
       ggplot2::geom_errorbar(ggplot2::aes(ymin=mean_percent-sd_percent, ymax=mean_percent+sd_percent),
                              width=.1,size=0.3, color="black")
+      #ggplot2::scale_y_log10()
 
     percent_plot <- percent_aes(gg = gg_pr, color_pal = cbp1, is_facet = is_facet,legend_order = legend_order)
   }
 
   gr_calculator <- gr_calculator %>% dplyr::select(condition, percent_growth, Time) %>% tidyr::spread(condition, percent_growth)
-  message ("plotting OD...")
-  print(gg_od)
 
-  message ("plotting percent growth rate...")
-  print(percent_plot)
-
-  return(gr_calculator)
+  if(OD_plot==TRUE){
+    #message ("plotting OD...")
+    ret_plt <- gg_od
+  }else{
+    #message ("plotting percent growth rate...")
+    ret_plt <- percent_plot
+  }
+  return(list(plot = ret_plt, data = gr_calculator))
 }
 
 

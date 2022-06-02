@@ -8,7 +8,8 @@ plot_growth_rate_lines(
   dat_gr = dat_gr,
   is_replicates = FALSE,
   is_facet = FALSE,
-  color_pal = NULL
+  color_pal = NULL,
+  OD_plot = TRUE
 )
 }
 \arguments{
@@ -23,7 +24,7 @@ example: WT_Set1 or WT+drug_Set1}
 \item{color_pal}{character vector, determining the colors to be used, default palette present}
 }
 \value{
-ggplot of OD600 and percent growth. Tibble of percent growth rates
+a list of ggplot of OD600 and percent growth. Tibble of percent growth rates
 }
 \description{
 plot_growth_rate_lines
