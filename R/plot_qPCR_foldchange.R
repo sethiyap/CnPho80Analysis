@@ -55,9 +55,9 @@ plot_qPCR_foldchange <- function(fc_tibble, display_pval=NULL, control_group="WT
                                     # then converting the two-tailed pvalue into one-tailed useful (by dividing the two-tailed pvalue into half)
                                     # as when we don't know the direction of population
 
-                                    pval_significance= dplyr::if_else(p < 0.05 & p > 0.01,"*",
-                                                                      dplyr::if_else(p < 0.01 & p > 0.001, "**", # adding pvalue significance
-                                                                                     dplyr::if_else(p < 0.001 & p > 0.0001, "***", "ns")))) %>%
+                                    pval_significance= dplyr::if_else(p < 0.05 & p >= 0.01,"*",
+                                                                      dplyr::if_else(p <= 0.01 & p >= 0.001, "**", # adding pvalue significance
+                                                                                     dplyr::if_else(p <= 0.001 & p >= 0.0001, "***", "ns")))) %>%
 
                       rstatix::adjust_pvalue(method = "fdr") %>%
                       rstatix::add_significance("p.adj")
