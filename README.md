@@ -173,38 +173,29 @@ go_gg <- dat_go %>% dplyr::mutate(Name=forcats::as_factor(Name),
 go_gg
 ```
 
-![](README_files/figure-markdown_github/GO_plot-1.png) ## Comparison of
-cna1∆ with pho80∆
+![](README_files/figure-markdown_github/GO_plot-1.png)
+
+## Comparison of *cna1∆* with *pho80∆*
 
 ``` r
-venn_dat2 <- read.table("inst/extdata/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
+cna1_compare <- readr::read_delim("inst/extdata/calcineurin_compare.txt", show_col_types = FALSE)
 
-gg_2 = as.list(venn_dat2)
-
-v2 = lapply(gg_2,unique)
-
-c2 = lapply(v2, function(x) x[!x %in% ""])
-lengths(c2)
+# pho80∆
+CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = cna1_compare, data_1 = "cna1∆/WT(37C)",
+    data_2 = "pho80∆/WT(+Pi)")
 ```
 
-    ##   cna1_37C_Down     cna1_37C_Up Pho80_hiPi_Down   Pho80_hiPi_Up 
-    ##             270             105             425             532
+![](README_files/figure-markdown_github/calcineurin_genes-1.png)
 
 ``` r
-names(c2)=factor(names(c2))
-upset_venn2 <- UpSetR::upset(UpSetR::fromList(c2), 
-          nsets = ncol(venn_dat),
-          order.by = c("degree"),
-          keep.order=TRUE,sets=names(c2),
-          sets.bar.color = c("#00468BFF","#ED0000FF", "#00468BFF", "#ED0000FF"),
-          text.scale=2, sets.x.label = "No. of genes")
-
-upset_venn2
+# pho81∆
+CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = cna1_compare, data_1 = "cna1∆/WT(37C)",
+    data_2 = "pho81∆/WT(-Pi)")
 ```
 
-![](README_files/figure-markdown_github/mitochondrial_genes_2-1.png)
+![](README_files/figure-markdown_github/calcineurin_genes-2.png)
 
-## Comparison of pho80∆ with rapamycin treated cells
+## Comparison of *pho80∆* with rapamycin treated cells
 
 ``` r
 dat <- readr::read_delim(file = "inst/extdata/rapamycin_compare.txt", show_col_types = FALSE)

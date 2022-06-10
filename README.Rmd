@@ -161,30 +161,22 @@ go_gg <- dat_go %>% dplyr::mutate(Name=forcats::as_factor(Name),
 go_gg
 
 ```
-## Comparison of cna1∆ with pho80∆
 
-```{r mitochondrial_genes_2, echo=TRUE, eval=TRUE}
-venn_dat2 <- read.table("inst/extdata/Pho80_Cna1_DEGs.txt",sep="\t", header=TRUE)
+## Comparison of *cna1∆* with *pho80∆*
 
-gg_2 = as.list(venn_dat2)
+```{r calcineurin_genes, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, tidy=TRUE}
 
-v2 = lapply(gg_2,unique)
+cna1_compare <- readr::read_delim("inst/extdata/calcineurin_compare.txt",show_col_types = FALSE)
 
-c2 = lapply(v2, function(x) x[!x %in% ""])
-lengths(c2)
+# pho80∆
+CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = cna1_compare, data_1 = "cna1∆/WT(37C)", data_2 = "pho80∆/WT(+Pi)")
 
-names(c2)=factor(names(c2))
-upset_venn2 <- UpSetR::upset(UpSetR::fromList(c2), 
-          nsets = ncol(venn_dat),
-          order.by = c("degree"),
-          keep.order=TRUE,sets=names(c2),
-          sets.bar.color = c("#00468BFF","#ED0000FF", "#00468BFF", "#ED0000FF"),
-          text.scale=2, sets.x.label = "No. of genes")
+# pho81∆
+CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = cna1_compare, data_1 = "cna1∆/WT(37C)", data_2 = "pho81∆/WT(-Pi)")
 
-upset_venn2
 ```
 
-## Comparison of pho80∆ with rapamycin treated cells
+## Comparison of *pho80∆* with rapamycin treated cells
 
 ```{r rapa_genes, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, tidy=TRUE}
 
@@ -193,7 +185,7 @@ dat <- readr::read_delim(file = "inst/extdata/rapamycin_compare.txt", show_col_t
 # pho80∆
 CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = dat, data_1 = "WT+Rapa/WT", data_2 = "pho80∆/WT(+Pi)")
 
-#pho81∆
+# pho81∆
 CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = dat, data_1 = "WT+Rapa/WT", data_2 = "pho81∆/WT(-Pi)")
 
 ```
