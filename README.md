@@ -126,8 +126,6 @@ PHO_genes <- tibble::tribble(
                 "BTA1",        6.099048089,           2.902203375,          -5.726045631
                )
 
-
-
 pp <- PHO_genes %>% 
           tidyr::gather(condition, Log2FC, -Gene) %>%
           dplyr::mutate(condition=forcats::as_factor(condition)) %>%
