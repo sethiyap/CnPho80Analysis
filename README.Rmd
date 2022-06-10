@@ -186,7 +186,7 @@ upset_venn2
 
 ## Comparison of pho80∆ with rapamycin treated cells
 
-```{r rapa_genes, echo=FALSE, eval=TRUE}
+```{r rapa_genes, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, tidy=TRUE}
 
 dat <- readr::read_delim(file = "inst/extdata/rapamycin_compare.txt", show_col_types = FALSE)
 
