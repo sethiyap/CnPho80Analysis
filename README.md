@@ -80,7 +80,7 @@ PCA plot highlights that transcriptiome of each sample is distinct from
 each other (generated using
 [FungiexpresZ](https://cparsania.shinyapps.io/FungiExpresZ/)).
 
-<img src="inst/extdata/pca_plot.png" width="50%" />
+<img src="inst/extdata/pca_plot.jpg" width="50%" />
 
 ## Genes affected by phosphate limitation and overload
 
