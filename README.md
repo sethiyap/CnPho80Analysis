@@ -206,28 +206,70 @@ upset_venn2
 
 ## Comparison of pho80∆ with rapamycin treated cells
 
-``` r
-venn_dat <- read.table("inst/extdata/Pho80_Rapa_DEGs.txt",sep="\t", header=TRUE)
+    ## Registered S3 methods overwritten by 'ggalt':
+    ##   method                  from   
+    ##   grid.draw.absoluteGrob  ggplot2
+    ##   grobHeight.absoluteGrob ggplot2
+    ##   grobWidth.absoluteGrob  ggplot2
+    ##   grobX.absoluteGrob      ggplot2
+    ##   grobY.absoluteGrob      ggplot2
 
-xx <- as.list(venn_dat)
+    ## Warning: replacing previous import 'magrittr::set_names' by 'purrr::set_names'
+    ## when loading 'CnPho80Analysis'
 
-xx2 = lapply(xx, function(x) x[!x %in% ""])
+    ## Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when
+    ## loading 'CnPho80Analysis'
 
-display_venn <- function(x, ...){
-  grid::grid.newpage()
-  venn_object <- VennDiagram::venn.diagram(x, filename = NULL, ...)
-  grid::grid.draw(venn_object)
-}
+    ## Warning: replacing previous import 'ggalt::bytes' by 'rlang::bytes' when loading
+    ## 'CnPho80Analysis'
 
-up_genes <- xx2[c(1,3)]
-down_genes <- xx2[c(2,4)]
-display_venn(up_genes, category.names = c("rapa_up", "pho80∆_up"),fill = c("#999999", "#E69F00"), lwd = 2,lty = 'blank')
-```
+    ## Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'
+    ## when loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::as_function' by 'rlang::as_function'
+    ## when loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'
+    ## when loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'
+    ## when loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'
+    ## when loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading
+    ## 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'
+    ## when loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when
+    ## loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when
+    ## loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'rstatix::filter' by 'stats::filter' when
+    ## loading 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+    ## 'CnPho80Analysis'
+
+    ## Warning: replacing previous import 'magrittr::extract' by 'tidyr::extract' when
+    ## loading 'CnPho80Analysis'
+
+    ## Registered S3 method overwritten by 'GGally':
+    ##   method from   
+    ##   +.gg   ggplot2
+
+    ## Warning: replacing previous import 'stats::filter' by 'dplyr::filter' when
+    ## loading 'CnPho80Analysis'
+
+    ## Warning: Removed 6929 rows containing missing values (geom_text_repel).
 
 ![](README_files/figure-markdown_github/rapa_genes-1.png)
 
-``` r
-display_venn(down_genes, category.names = c( "rapa_down","pho80∆_down"),fill = c( "#56B4E9", "#009E73"), lwd = 2,lty = 'blank')
-```
+    ## Warning: Removed 6938 rows containing missing values (geom_text_repel).
 
 ![](README_files/figure-markdown_github/rapa_genes-2.png)
