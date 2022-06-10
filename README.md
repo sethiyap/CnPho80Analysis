@@ -115,23 +115,25 @@ pathway genes.
 
 ``` r
 PHO_genes <- tibble::tribble(
-               ~CNAG_name, ~`LFC_WT(-Pi/+Pi)`, ~`LFC_pho80∆/WT(+Pi)`,
-                   "AKP1",        4.765711394,           2.956528741,
-                   "APH1",        8.176126192,           6.896639271,
-                  "PHO80",        2.119554668,           -1.41425552,
-                  "PHO81",        1.976859058,            1.74039531,
-                  "PHO84",        7.346774993,           5.504759458,
-                  "PHO89",        4.608061737,           2.096706399,
-                   "VTC4",        3.157037614,           3.191765246,
-                   "BTA1",        6.099048089,           2.902203375
+                 ~Gene, ~`LFC_WT(-Pi/+Pi)`, ~`LFC_pho80∆/WT(+Pi)`, ~`LFC_pho81∆/WT(-Pi)`,
+                "AKP1",        4.765711394,           2.956528741,          -4.289050233,
+                "APH1",        8.176126192,           6.896639271,          -8.387521025,
+               "PHO80",        2.119554668,           -1.41425552,          -2.922529881,
+               "PHO81",        1.976859058,            1.74039531,          -3.012824376,
+               "PHO84",        7.346774993,           5.504759458,          -7.134745782,
+               "PHO89",        4.608061737,           2.096706399,          -4.485037531,
+                "VTC4",        3.157037614,           3.191765246,          -3.350748834,
+                "BTA1",        6.099048089,           2.902203375,          -5.726045631
                )
 
+
+
 pp <- PHO_genes %>% 
-          tidyr::gather(condition, Log2FC, -CNAG_name) %>%
+          tidyr::gather(condition, Log2FC, -Gene) %>%
           dplyr::mutate(condition=forcats::as_factor(condition)) %>%
-          ggplot2::ggplot(ggplot2::aes(CNAG_name, Log2FC, fill=condition))+
+          ggplot2::ggplot(ggplot2::aes(Gene, Log2FC, fill=condition))+
           ggplot2::geom_col(position = "dodge", color="black")+
-          ggplot2::scale_fill_manual(values=c("#0099B4FF", "#925E9FFF"))+
+          ggplot2::scale_fill_manual(values=c("#0072B2", "#D55E00", "#CC79A7"))+
           ggplot2::theme_bw()
   
 pp
@@ -146,29 +148,16 @@ performing GO-term enrichment at FungiDb using *C.neoformans* H99 as
 background strain.
 
 ``` r
-dat_go <- readr::read_delim("inst/extdata/GO_enrichment.txt", delim="\t", col_names = TRUE)
-```
+dat_go <- readr::read_delim("inst/extdata/GO_enrichment.txt", delim = "\t", col_names = TRUE)
 
-    ## Rows: 44 Columns: 6
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: "\t"
-    ## chr (3): Name, Class, Category
-    ## dbl (3): Result_count, Pct_of_bgd, Pvalue
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-``` r
-go_gg <- dat_go %>% dplyr::mutate(Name=forcats::as_factor(Name),
-                                  Class=factor(Class, levels=rev(unique(Class)))) %>%
-          ggplot2::ggplot(ggplot2::aes(Class,Name))+
-            ggplot2::geom_point(ggplot2::aes(size=Pct_of_bgd),color="black",shape=23, stroke=0.8)+
-            ggplot2::geom_point(ggplot2::aes(size=Pct_of_bgd,alpha=-log10(Pvalue), fill=Class),shape=23)+
-            ggplot2::facet_wrap(~Category, scales="free")+
-            ggplot2::scale_fill_manual(values=c("#ED0000FF","#00468BFF"))+
-            ggplot2::facet_wrap(~Category)+
-            ggplot2::theme_bw()+
-            ggplot2::scale_x_discrete(expand = c(0.8,0.8))
+go_gg <- dat_go %>%
+    dplyr::mutate(Name = forcats::as_factor(Name), Class = factor(Class, levels = rev(unique(Class)))) %>%
+    ggplot2::ggplot(ggplot2::aes(Class, Name)) + ggplot2::geom_point(ggplot2::aes(size = Pct_of_bgd),
+    color = "black", shape = 23, stroke = 0.8) + ggplot2::geom_point(ggplot2::aes(size = Pct_of_bgd,
+    alpha = -log10(Pvalue), fill = Class), shape = 23) + ggplot2::facet_wrap(~Category,
+    scales = "free") + ggplot2::scale_fill_manual(values = c("#ED0000FF", "#00468BFF")) +
+    ggplot2::facet_wrap(~Category) + ggplot2::theme_bw() + ggplot2::scale_x_discrete(expand = c(0.8,
+    0.8))
 
 go_gg
 ```
