@@ -22,6 +22,14 @@ if(require("devtools")){
 }
 ```
 
+## Constitutive activation of PHO pathway in pho80∆
+
+### acid phoshatase activity
+```{r}
+plot_pvalues(dat_tble = dat_go, display_pval = FALSE, control_group = "pho80∆", scales = NULL, y_label = "acid phosphatase activity")
+
+```
+
 ## RNASeq data for WT and pho80∆
 
 RNASeq data for WT and pho80∆ under phosphate limited conditions was downloaded from SRA database: [PRJDB3514](https://www.ncbi.nlm.nih.gov/bioproject/PRJDB3514/)
