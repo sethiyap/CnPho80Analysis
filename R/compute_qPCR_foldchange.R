@@ -98,11 +98,11 @@ compute_qPCR_foldchange <- function(dat_qPCR=dat_qPCR, house_keeping="TUB2", con
 
       })) %>%
       tidyr::unnest_wider(pvalue, simplify = TRUE, names_sep = "_") %>%
-      dplyr::mutate(significance=dplyr::if_else(pvalue_1 < 0.05 & pvalue_1 > 0.01,"*",
-                                                dplyr::if_else(pvalue_1 < 0.01 & pvalue_1 > 0.001, "**", # adding pvalue significance
-                                                               dplyr::if_else(pvalue_1 < 0.001 & pvalue_1 > 0.0001, "***",
-                                                                              dplyr::if_else(p< 0.0001, "****", "ns"))))) %>%
-      dplyr::select(c(gene, pvalue_1, significance))
+      dplyr::mutate(pvalue=pvalue_1, significance=dplyr::if_else(pvalue < 0.05 & pvalue > 0.01,"*",
+                                                dplyr::if_else(pvalue < 0.01 & pvalue > 0.001, "**", # adding pvalue significance
+                                                               dplyr::if_else(pvalue < 0.001 & pvalue > 0.0001, "***",
+                                                                              dplyr::if_else(pvalue< 0.0001, "****", "ns"))))) %>%
+      dplyr::select(c(gene, pvalue, significance))
 
     return(foldchange_pvalue)
   }else{

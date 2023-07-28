@@ -14,7 +14,7 @@
 #' @import rlang
 #' @import survminer
 #'
-#' survival_df <- readr::read_delim(pipe("pbpaste"), delim="\t", col_names = TRUE)
+#'
 #'
 plot_survival_curve <- function(survival_data, palette=NULL, display_pval=TRUE){
 

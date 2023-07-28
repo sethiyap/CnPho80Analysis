@@ -20,7 +20,3 @@ a scatterplot highlighting commonly up- and down- regulated genes
 \description{
 compare_two_rnaseq
 }
-\examples{
-
-
-}
