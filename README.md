@@ -21,8 +21,26 @@ neoformans* RNASeq data to understand the effect of phosphate overload.
 ### acid phoshatase activity
 
 ``` r
-CnPho80Analysis::plot_pvalues(dat_tble = dat_go, display_pval = FALSE, control_group = "pho80∆", scales = NULL, y_label = "acid phosphatase activity")
+acid_data <- tibble::tribble(
+                  ~sample,      ~`Pi+`,      ~`Pi-`,
+                   "WT_1", 0.011204091, 0.258106747,
+                   "WT_2", 0.019409866, 0.242821904,
+                   "WT_3", 0.013333333, 0.264044944,
+               "pho80∆_1", 0.295524146, 0.566013667,
+               "pho80∆_2", 0.310817455, 0.556350938,
+               "pho80∆_3", 0.300179319, 0.579698905,
+               "pho81∆_1", 0.009410548, 0.011530945,
+               "pho81∆_2", 0.010116929, 0.012233286,
+               "pho81∆_3", 0.008729744, 0.012394366,
+                "pcl6∆_1", 0.009906977, 0.243656137,
+                "pcl6∆_2", 0.010315186,  0.27057683,
+                "pcl6∆_3", 0.009953488, 0.281757106
+               )
+
+CnPho80Analysis::plot_pvalues(dat_tble = acid_data, display_pval = FALSE, control_group = "pho80∆", scales = NULL, y_label = "acid phosphatase activity")
 ```
+
+<img src="inst/extdata/acid_phosphatase.png" width="50%" />
 
 ## RNASeq data for WT and pho80∆
 
@@ -212,20 +230,40 @@ CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = dat, data_1 = "WT+Rapa/WT", dat
 
 ## qPCR on rapamycin treated cells
 
-Experiment in brief: 1. Cells (WT and pho80Δ) were incubated O/N in YPD
-at 30C, 250rpm 2. Cells were washed twice with water (4500rpm, 5min) 3.
-OD600 was measured 4. Cells were diluted as OD=1/ml in 10ml fresh YPD 5.
-Cells were treated with 1μg/ml rapamycin and equal amount of DMSO as
-control 6. Cells were incubated for 2hr at 37C, 250rpm. 7. Cells were
-harvested and snap frozen in liquid Nitrogen followed by storage in
--80C. 8. RNA extraction (trizol method) and cDNA synthesis. 9. qPCR of
-genes commonly induced or down-regulated in pho80Δ/WT and WT+rapa/WT
-RNASeq data
+Experiment in brief:
 
-ΔΔCt and fold change calculation Housekeeping gene: ACT1 (actin) Gene of
-Interest: ABC ΔCt: Ct value ABC - Ct value ACT1 Avg ΔCt: Average of ΔCt
-control (WT) ΔΔCt: ΔCt - Avg ΔCt Foldchange: 2^-ΔΔCt Pvalue was
-determined by t-test.
+1.  Cells (WT and pho80Δ) were incubated O/N in YPD at 30C, 250rpm
+
+2.  Cells were washed twice with water (4500rpm, 5min)
+
+3.  OD600 was measured
+
+4.  Cells were diluted as OD=1/ml in 10ml fresh YPD
+
+5.  Cells were treated with 1μg/ml rapamycin and equal amount of DMSO as
+    control
+
+6.  Cells were incubated for 2hr at 37C, 250rpm.
+
+7.  Cells were harvested and snap frozen in liquid Nitrogen followed by
+    storage in -80C.
+
+8.  RNA extraction (trizol method) and cDNA synthesis.
+
+9.  qPCR of genes commonly induced or down-regulated in pho80Δ/WT and
+    WT+rapa/WT RNASeq data
+
+ΔΔCt and fold change calculation
+
+-   Housekeeping gene: ACT1 (actin), Gene of Interest: ABC
+
+-   ΔCt: Ct value ABC - Ct value ACT1
+
+-   Avg ΔCt: Average of ΔCt control (WT) ΔΔCt: ΔCt - Avg ΔCt
+
+-   Foldchange: 2^-ΔΔCt
+
+-   Pvalue was determined by t-test.
 
 ``` r
 rapa_qPCR <- readr::read_delim("inst/extdata/qPCR_rapa.txt", delim = "\t", col_names = TRUE)
