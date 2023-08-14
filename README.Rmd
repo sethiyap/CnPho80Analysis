@@ -26,7 +26,9 @@ if(require("devtools")){
 ## Constitutive activation of PHO pathway in pho80∆
 
 ### acid phoshatase activity
-```{r}
+```{r eval=FALSE}
+
+
 CnPho80Analysis::plot_pvalues(dat_tble = dat_go, display_pval = FALSE, control_group = "pho80∆", scales = NULL, y_label = "acid phosphatase activity")
 
 ```
@@ -230,8 +232,8 @@ Pvalue was determined by t-test.
 
 rapa_qPCR <- readr::read_delim("inst/extdata/qPCR_rapa.txt", delim="\t", col_names = TRUE)
 
-rapa_FC <- compute_qPCR_foldchange(dat_qPCR = rapa_qPCR, house_keeping = "ACT1", control = "WT",treatment = c("WT+Rapa"), return_pval = FALSE)
+rapa_FC <- CnPho80Analysis::compute_qPCR_foldchange(dat_qPCR = rapa_qPCR, house_keeping = "ACT1", control = "WT",treatment = c("WT+Rapa"), return_pval = FALSE)
 
-plot_qPCR_foldchange(fc_tibble = rapa_FC, display_pval = FALSE, control_group = "pho80",nrow = 1)
+CnPho80Analysis::plot_qPCR_foldchange(fc_tibble = rapa_FC, display_pval = FALSE, control_group = "pho80",nrow = 1)
 
 ```

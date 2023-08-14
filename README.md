@@ -1,5 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+knitr::opts_chunk$set(cache = TRUE)
+
 # CnPho80Analysis
 
 R-package containing all the scripts and functions used to analyse *C.
@@ -13,6 +15,14 @@ neoformans* RNASeq data to understand the effect of phosphate overload.
             install.packages("devtools")
             devtools::install_github("sethiyap/CnPho80Analysis")
     }
+
+## Constitutive activation of PHO pathway in pho80∆
+
+### acid phoshatase activity
+
+``` r
+CnPho80Analysis::plot_pvalues(dat_tble = dat_go, display_pval = FALSE, control_group = "pho80∆", scales = NULL, y_label = "acid phosphatase activity")
+```
 
 ## RNASeq data for WT and pho80∆
 
@@ -199,3 +209,32 @@ CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = dat, data_1 = "WT+Rapa/WT", dat
 ```
 
 ![](README_files/figure-markdown_github/rapa_genes-2.png)
+
+## qPCR on rapamycin treated cells
+
+Experiment in brief: 1. Cells (WT and pho80Δ) were incubated O/N in YPD
+at 30C, 250rpm 2. Cells were washed twice with water (4500rpm, 5min) 3.
+OD600 was measured 4. Cells were diluted as OD=1/ml in 10ml fresh YPD 5.
+Cells were treated with 1μg/ml rapamycin and equal amount of DMSO as
+control 6. Cells were incubated for 2hr at 37C, 250rpm. 7. Cells were
+harvested and snap frozen in liquid Nitrogen followed by storage in
+-80C. 8. RNA extraction (trizol method) and cDNA synthesis. 9. qPCR of
+genes commonly induced or down-regulated in pho80Δ/WT and WT+rapa/WT
+RNASeq data
+
+ΔΔCt and fold change calculation Housekeeping gene: ACT1 (actin) Gene of
+Interest: ABC ΔCt: Ct value ABC - Ct value ACT1 Avg ΔCt: Average of ΔCt
+control (WT) ΔΔCt: ΔCt - Avg ΔCt Foldchange: 2^-ΔΔCt Pvalue was
+determined by t-test.
+
+``` r
+rapa_qPCR <- readr::read_delim("inst/extdata/qPCR_rapa.txt", delim = "\t", col_names = TRUE)
+
+rapa_FC <- CnPho80Analysis::compute_qPCR_foldchange(dat_qPCR = rapa_qPCR, house_keeping = "ACT1",
+    control = "WT", treatment = c("WT+Rapa"), return_pval = FALSE)
+
+CnPho80Analysis::plot_qPCR_foldchange(fc_tibble = rapa_FC, display_pval = FALSE,
+    control_group = "pho80", nrow = 1)
+```
+
+![](README_files/figure-markdown_github/rapa_qPCR-1.png)
