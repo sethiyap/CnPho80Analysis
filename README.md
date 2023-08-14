@@ -201,7 +201,7 @@ go_gg
 
 ![](README_files/figure-markdown_github/GO_plot-1.png)
 
-### GO enrichment *pho80∆*, *pho81∆*
+### Loss of Pho80, Pho81 alters energy metabolism and stress response
 
 ``` r
 go_dat <- readr::read_delim("inst/extdata/pho80_pho81_GO.txt", delim = "\t", col_names = TRUE)

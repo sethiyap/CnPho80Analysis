@@ -229,7 +229,7 @@ go_gg
 
 ```
 
-### GO enrichment *pho80∆*, *pho81∆*
+### Loss of Pho80, Pho81 alters energy metabolism and stress response
 
 ```{r GO_plot2, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, tidy=TRUE}
 
