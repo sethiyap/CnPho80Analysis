@@ -28,9 +28,17 @@ if(require("devtools")){
 }
 ```
 
-## Constitutive activation of PHO pathway in pho80∆
+### Phosphate Acquisition pathway in *C. neoformans*
 
-### acid phoshatase activity
+![](inst/extdata/CnPhoPathway.jpg)
+
+### Hypothesis: Dysregulation of CDK machinery has detrimental impact on phosphate homeostasis and attenuates virulence
+
+![](inst/extdata/hypothesis.jpg)
+
+### Constitutive activation of PHO pathway in pho80∆
+
+#### acid phoshatase activity
 
 ```{r acid_phosphatase, echo=TRUE, eval=FALSE}
 
@@ -58,7 +66,7 @@ CnPho80Analysis::plot_pvalues(dat_tble = acid_data, display_pval = FALSE, contro
 knitr::include_graphics("inst/extdata/acid_phosphatase.png")
 ```
 
-## RNASeq data for WT and pho80∆
+### RNASeq data for WT and *pho80∆*
 
 RNASeq data for WT and pho80∆ under phosphate limited conditions was
 downloaded from SRA database:
@@ -70,13 +78,13 @@ aligner. **Feature count** function of
 [Rsubread](https://academic.oup.com/nar/article/47/8/e47/5345150)
 R-package was used to obtain mapped read counts for each gene.
 
-### STAR alignment
+#### STAR alignment
 
 ```         
 qsub star_alignment_job_submission.sh
 ```
 
-### Rsubread to get count matrix
+#### Rsubread to get count matrix
 
 ```{r rsubread, echo=TRUE, eval=FALSE}
 
@@ -106,7 +114,7 @@ count_mat <- count_tibble %>%
 For cna1∆ data, mapped read counts were downloaded from GEO
 database:[GSE93005](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE93005)
 
-### Computation of normalized read counts
+#### Computation of normalized read counts
 
 Normalized read counts for each gene were determined by DESeq2 for all
 the datasets. Genes with read count \<2 in all conditions were filtered.
@@ -133,7 +141,7 @@ each other (generated using
 knitr::include_graphics("inst/extdata/pca_plot.jpg")
 ```
 
-## Genes affected by phosphate limitation and overload
+### Genes affected by phosphate limitation and overload
 
 ```{r DEG_genes, echo=TRUE, eval=TRUE}
 
@@ -158,7 +166,7 @@ dg <- DEG %>%
 dg
 ```
 
-## Phosphate acquisition genes
+### Phosphate acquisition genes
 
 Data validation by measuring the expression of phosphate acquisition
 pathway genes.
@@ -189,7 +197,7 @@ pp
 
 ```
 
-## Functional analysis by GO-term enrichment
+### Functional analysis by GO-term enrichment
 
 Functions of the differential expressed genes (DEGs) was determined by
 performing GO-term enrichment at FungiDb using *C.neoformans* H99 as
@@ -214,7 +222,7 @@ go_gg
 
 ```
 
-## Comparison of *cna1∆* with *pho80∆*
+### Comparison of *cna1∆* with *pho80∆*
 
 ```{r calcineurin_genes, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, tidy=TRUE}
 
@@ -228,7 +236,7 @@ CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = cna1_compare, data_1 = "cna1∆
 
 ```
 
-## Comparison of *pho80∆* with rapamycin treated cells
+### Comparison of *pho80∆* with rapamycin treated cells
 
 ```{r rapa_genes, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, tidy=TRUE}
 
@@ -242,9 +250,9 @@ CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = dat, data_1 = "WT+Rapa/WT", dat
 
 ```
 
-## qPCR on rapamycin treated cells
+### qPCR on rapamycin treated cells
 
-Experiment in brief:
+#### Experiment in brief: 
 
 1.  Cells (WT and pho80Δ) were incubated O/N in YPD at 30C, 250rpm
 
@@ -287,4 +295,31 @@ rapa_FC <- CnPho80Analysis::compute_qPCR_foldchange(dat_qPCR = rapa_qPCR, house_
 
 CnPho80Analysis::plot_qPCR_foldchange(fc_tibble = rapa_FC, display_pval = FALSE, control_group = "pho80",nrow = 1)
 
+```
+
+### Infection Assay
+
+Intravenous infection model
+
+```{r survival_assay_1, echo=TRUE, eval=TRUE}
+
+surv_dat <- readr::read_delim("inst/extdata/survival_data.txt") 
+
+sc_intra <- surv_dat %>% 
+            dplyr::filter(condition=="Intravenous") %>%
+            dplyr::select(-c(condition))
+
+CnPho80Analysis::plot_survival_curve(survival_data = sc_intra, palette = NULL, display_pval = TRUE)
+        
+```
+
+Inhalation infection model
+
+```{r survival_assay_2, echo=TRUE, eval=TRUE}
+
+sc_inh <- surv_dat %>% 
+            dplyr::filter(condition=="Inhalation") %>%
+            dplyr::select(-c(condition))
+
+CnPho80Analysis::plot_survival_curve(survival_data = sc_inh, palette = NULL, display_pval = TRUE)
 ```

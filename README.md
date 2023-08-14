@@ -16,9 +16,17 @@ neoformans* RNASeq data to understand the effect of phosphate overload.
             devtools::install_github("sethiyap/CnPho80Analysis")
     }
 
-## Constitutive activation of PHO pathway in pho80∆
+### Phosphate Acquisition pathway in *C. neoformans*
 
-### acid phoshatase activity
+![](inst/extdata/CnPhoPathway.jpg)
+
+### Hypothesis: Dysregulation of CDK machinery has detrimental impact on phosphate homeostasis and attenuates virulence
+
+![](inst/extdata/hypothesis.jpg)
+
+### Constitutive activation of PHO pathway in pho80∆
+
+#### acid phoshatase activity
 
 ``` r
 acid_data <- tibble::tribble(
@@ -42,7 +50,7 @@ CnPho80Analysis::plot_pvalues(dat_tble = acid_data, display_pval = FALSE, contro
 
 <img src="inst/extdata/acid_phosphatase.png" width="50%" />
 
-## RNASeq data for WT and pho80∆
+### RNASeq data for WT and *pho80∆*
 
 RNASeq data for WT and pho80∆ under phosphate limited conditions was
 downloaded from SRA database:
@@ -54,11 +62,11 @@ aligner. **Feature count** function of
 [Rsubread](https://academic.oup.com/nar/article/47/8/e47/5345150)
 R-package was used to obtain mapped read counts for each gene.
 
-### STAR alignment
+#### STAR alignment
 
     qsub star_alignment_job_submission.sh
 
-### Rsubread to get count matrix
+#### Rsubread to get count matrix
 
 ``` r
 gff_file <- "ref_genome/FungiDB-54_CneoformansH99.gff"
@@ -87,7 +95,7 @@ count_mat <- count_tibble %>%
 For cna1∆ data, mapped read counts were downloaded from GEO
 database:[GSE93005](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE93005)
 
-### Computation of normalized read counts
+#### Computation of normalized read counts
 
 Normalized read counts for each gene were determined by DESeq2 for all
 the datasets. Genes with read count \<2 in all conditions were filtered.
@@ -110,7 +118,7 @@ each other (generated using
 
 <img src="inst/extdata/pca_plot.jpg" width="50%" />
 
-## Genes affected by phosphate limitation and overload
+### Genes affected by phosphate limitation and overload
 
 ``` r
 library(magrittr)
@@ -136,7 +144,7 @@ dg
 
 ![](README_files/figure-markdown_github/DEG_genes-1.png)
 
-## Phosphate acquisition genes
+### Phosphate acquisition genes
 
 Data validation by measuring the expression of phosphate acquisition
 pathway genes.
@@ -167,7 +175,7 @@ pp
 
 ![](README_files/figure-markdown_github/barplot_pho_genes-1.png)
 
-## Functional analysis by GO-term enrichment
+### Functional analysis by GO-term enrichment
 
 Functions of the differential expressed genes (DEGs) was determined by
 performing GO-term enrichment at FungiDb using *C.neoformans* H99 as
@@ -190,7 +198,7 @@ go_gg
 
 ![](README_files/figure-markdown_github/GO_plot-1.png)
 
-## Comparison of *cna1∆* with *pho80∆*
+### Comparison of *cna1∆* with *pho80∆*
 
 ``` r
 cna1_compare <- readr::read_delim("inst/extdata/calcineurin_compare.txt", show_col_types = FALSE)
@@ -210,7 +218,7 @@ CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = cna1_compare, data_1 = "cna1∆
 
 ![](README_files/figure-markdown_github/calcineurin_genes-2.png)
 
-## Comparison of *pho80∆* with rapamycin treated cells
+### Comparison of *pho80∆* with rapamycin treated cells
 
 ``` r
 dat <- readr::read_delim(file = "inst/extdata/rapamycin_compare.txt", show_col_types = FALSE)
@@ -228,9 +236,9 @@ CnPho80Analysis::compare_two_rnaseq(rnaseq_dat = dat, data_1 = "WT+Rapa/WT", dat
 
 ![](README_files/figure-markdown_github/rapa_genes-2.png)
 
-## qPCR on rapamycin treated cells
+### qPCR on rapamycin treated cells
 
-Experiment in brief:
+#### Experiment in brief:
 
 1.  Cells (WT and pho80Δ) were incubated O/N in YPD at 30C, 250rpm
 
@@ -276,3 +284,42 @@ CnPho80Analysis::plot_qPCR_foldchange(fc_tibble = rapa_FC, display_pval = FALSE,
 ```
 
 ![](README_files/figure-markdown_github/rapa_qPCR-1.png)
+
+### Infection Assay
+
+Intravenous infection model
+
+``` r
+surv_dat <- readr::read_delim("inst/extdata/survival_data.txt") 
+```
+
+    ## Rows: 87 Columns: 4
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: "\t"
+    ## chr (2): Treatment, condition
+    ## dbl (2): Day, Status
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+sc_intra <- surv_dat %>% 
+            dplyr::filter(condition=="Intravenous") %>%
+            dplyr::select(-c(condition))
+
+CnPho80Analysis::plot_survival_curve(survival_data = sc_intra, palette = NULL, display_pval = TRUE)
+```
+
+![](README_files/figure-markdown_github/survival_assay_1-1.png)
+
+Inhalation infection model
+
+``` r
+sc_inh <- surv_dat %>% 
+            dplyr::filter(condition=="Inhalation") %>%
+            dplyr::select(-c(condition))
+
+CnPho80Analysis::plot_survival_curve(survival_data = sc_inh, palette = NULL, display_pval = TRUE)
+```
+
+![](README_files/figure-markdown_github/survival_assay_2-1.png)

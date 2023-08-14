@@ -1,0 +1,88 @@
+Treatment	Day	Status	condition
+WT H99	8	1	Intravenous
+WT H99	9	1	Intravenous
+WT H99	9	1	Intravenous
+WT H99	9	1	Intravenous
+WT H99	9	1	Intravenous
+WT H99	12	1	Intravenous
+WT H99	20	1	Intravenous
+WT H99	8	1	Intravenous
+WT H99	8	1	Intravenous
+WT H99	8	1	Intravenous
+WT H99	9	1	Intravenous
+WT H99	10	1	Intravenous
+WT H99	11	1	Intravenous
+Pho80Δ	12	1	Intravenous
+Pho80Δ	17	1	Intravenous
+Pho80Δ	22	1	Intravenous
+Pho80Δ	23	1	Intravenous
+Pho80Δ	23	1	Intravenous
+Pho80Δ	25	1	Intravenous
+Pho80Δ	25	1	Intravenous
+Pho81Δ	20	0	Intravenous
+Pho81Δ	20	0	Intravenous
+Pho81Δ	20	0	Intravenous
+Pho81Δ	20	0	Intravenous
+Pho81Δ	20	0	Intravenous
+Pho81Δ	20	0	Intravenous
+Pho80Δ-Rec	8	1	Intravenous
+Pho80Δ-Rec	10	1	Intravenous
+Pho80Δ-Rec	10	1	Intravenous
+Pho80Δ-Rec	11	1	Intravenous
+Pho80Δ-Rec	17	1	Intravenous
+Pho80Δ-Rec	18	1	Intravenous
+Pho80Δ-Rec	20	1	Intravenous
+Pho81Δ-Rec	8	1	Intravenous
+Pho81Δ-Rec	8	1	Intravenous
+Pho81Δ-Rec	8	1	Intravenous
+Pho81Δ-Rec	10	1	Intravenous
+Pho81Δ-Rec	10	1	Intravenous
+Pho81Δ-Rec	10	1	Intravenous
+WT	23	1	Inhalation
+WT	18	1	Inhalation
+WT	21	1	Inhalation
+WT	21	1	Inhalation
+WT	16	1	Inhalation
+WT	19	1	Inhalation
+WT	17	1	Inhalation
+WT	18	1	Inhalation
+WT	19	1	Inhalation
+WT	13	1	Inhalation
+Pho80Δ	27	1	Inhalation
+Pho80Δ	21	1	Inhalation
+Pho80Δ	22	1	Inhalation
+Pho80Δ	26	1	Inhalation
+Pho80Δ	29	1	Inhalation
+Pho80Δ	20	1	Inhalation
+Pho80Δ	25	1	Inhalation
+Pho80Δ	24	1	Inhalation
+Pho80Δ	30	1	Inhalation
+Pho80Δ	23	1	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho81Δ	35	0	Inhalation
+Pho80rec	23	1	Inhalation
+Pho80rec	25	1	Inhalation
+Pho80rec	26	1	Inhalation
+Pho80rec	14	1	Inhalation
+Pho80rec	29	1	Inhalation
+Pho80rec	23	1	Inhalation
+Pho80rec	26	1	Inhalation
+Pho80rec	29	1	Inhalation
+Pho80rec	27	1	Inhalation
+Pho81rec	17	1	Inhalation
+Pho81rec	18	1	Inhalation
+Pho81rec	19	1	Inhalation
+Pho81rec	19	1	Inhalation
+Pho81rec	20	1	Inhalation
+Pho81rec	21	1	Inhalation
+Pho81rec	21	1	Inhalation
+Pho81rec	22	1	Inhalation
+Pho81rec	22	1	Inhalation
