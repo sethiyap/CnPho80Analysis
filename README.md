@@ -1,13 +1,16 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-knitr::opts_chunk$set(cache = TRUE)
-
 # CnPho80Analysis
 
-R-package containing all the scripts and functions used to analyse *C.
-neoformans* RNASeq data to understand the effect of phosphate overload.
+An R-package containing all the scripts and functions used to analyse
+*C. neoformans* data to understand the effect of phosphate dysregulation
+on cellular growth and infection. Results from this study are published
+in paper entitled [***“Dysregulating PHO Signaling via the CDK Machinery
+Differentially Impacts Energy Metabolism, Calcineurin Signaling, and
+Virulence in Cryptococcus
+neoformans”***](https://journals.asm.org/doi/10.1128/mbio.03551-22)
 
-# Install this package
+### Install this package
 
     if(require("devtools")){
             devtools::install_github("sethiyap/CnPho80Analysis")
@@ -198,6 +201,24 @@ go_gg
 
 ![](README_files/figure-markdown_github/GO_plot-1.png)
 
+### GO enrichment *pho80∆*, *pho81∆*
+
+``` r
+go_dat <- readr::read_delim("inst/extdata/pho80_pho81_GO.txt", delim = "\t", col_names = TRUE)
+
+go_gg1 <- go_dat %>%
+    dplyr::mutate(name = forcats::as_factor(name)) %>%
+    ggplot2::ggplot(ggplot2::aes(class, name)) + ggplot2::geom_point(ggplot2::aes(size = pct_of_bgd,
+    color = type, shape = type), stroke = 0.8) + ggplot2::scale_color_manual(values = c("#00468BFF",
+    "#ED0000FF")) + ggplot2::theme_bw() + ggplot2::facet_wrap(~group, scales = "free",
+    strip.position = "right", ncol = 1) + ggplot2::scale_x_discrete(expand = c(0.5,
+    0.5)) + ggplot2::theme(axis.text = ggplot2::element_text(color = "black", size = 12))
+
+print(go_gg1)
+```
+
+![](README_files/figure-markdown_github/GO_plot2-1.png)
+
 ### Comparison of *cna1∆* with *pho80∆*
 
 ``` r
@@ -291,18 +312,7 @@ Intravenous infection model
 
 ``` r
 surv_dat <- readr::read_delim("inst/extdata/survival_data.txt") 
-```
 
-    ## Rows: 87 Columns: 4
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: "\t"
-    ## chr (2): Treatment, condition
-    ## dbl (2): Day, Status
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-``` r
 sc_intra <- surv_dat %>% 
             dplyr::filter(condition=="Intravenous") %>%
             dplyr::select(-c(condition))
@@ -323,3 +333,26 @@ CnPho80Analysis::plot_survival_curve(survival_data = sc_inh, palette = NULL, dis
 ```
 
 ![](README_files/figure-markdown_github/survival_assay_2-1.png)
+
+PBMC
+
+``` r
+PBMC_dat <- tibble::tribble(
+                 ~sample, ~Media_control, ~`Media+PBMC`,
+                  "WT_1",       2530000L,      2830000L,
+                  "WT_2",       2350000L,      2600000L,
+                  "WT_3",       2580000L,      3350000L,
+              "pho80Δ_1",       2830000L,      1190000L,
+              "pho80Δ_2",       2300000L,      1440000L,
+              "pho80Δ_3",       1780000L,      1340000L,
+              "pho81Δ_1",       2230000L,      1240000L,
+              "pho81Δ_2",       1530000L,      1180000L,
+              "pho81Δ_3",       1600000L,      1330000L
+              )
+
+CnPho80Analysis::plot_pvalues(dat_tble = PBMC_dat, display_pval = FALSE, control_group = "WT", scales = NULL, y_label = "CFU/ml")
+```
+
+![](README_files/figure-markdown_github/PBMC_dat-1.png)
+
+### 

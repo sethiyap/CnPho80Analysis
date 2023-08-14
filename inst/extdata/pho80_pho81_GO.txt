@@ -1,0 +1,14 @@
+GO	name	pct_of_bgd	pval	class	type	group
+GO:0055114	oxidation-reduction process	6	0.04752074	pho81	Down	energy metabolism
+GO:0055114	oxidation-reduction process	7.1	0.004483445	pho80	Down	energy metabolism
+GO:0007005	mitochondrion organization	14	0.007946665	pho80	Down	energy metabolism
+GO:0005975	carbohydrate metabolic process	8.6	0.010240402	pho81	Down	energy metabolism
+GO:0005975	carbohydrate metabolic process	7.9	0.029732128	pho80	Down	energy metabolism
+GO:0042593	glucose homeostasis	50	0.009692366	pho80	Down	energy metabolism
+GO:0006097	glyoxylate cycle	100	0.040242235	pho81	Down	energy metabolism
+GO:0034605	cellular response to heat	12.2	0.000155517	pho81	Up	Stress response
+GO:0034605	cellular response to heat	7.9	0.036831073	pho80	Down	Stress response
+GO:1905237	response to cyclosporin A	42.9	0.001993828	pho81	Down	Stress response
+GO:0060237	regulation of fungal-type cell wall organization	100	0.043563196	pho81	Up	Stress response
+GO:0006952	defense response	100	0.040242235	pho81	Down	Stress response
+GO:0006952	defense response	100	0.039851534	pho80	Up	Stress response
